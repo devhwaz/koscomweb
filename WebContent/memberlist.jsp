@@ -41,5 +41,7 @@
 	}//end if
 	%>
 </table>
+<br>
+<a href="memberInput.html">회원가입하러가기~~~~~!!!</a>
 </body>
 </html>

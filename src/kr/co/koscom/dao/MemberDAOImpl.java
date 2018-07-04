@@ -126,12 +126,31 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 	public static void main(String[] args) {
 		MemberDAOImpl dao = new MemberDAOImpl();
-		MemberDTO member = new MemberDTO();
+		System.out.println(dao.deleteMember("carami"));
+		/*MemberDTO member = new MemberDTO();
 		member.setEmail("ccc@ccc.com");
 		member.setName("kkkk");
 		member.setPassword("111");
 		member.setId("carami");
 		System.out.println(dao.updateMember(member));
-		System.out.println(dao.getMember("carami"));
+		System.out.println(dao.getMember("carami"));*/
+	}
+
+	@Override
+	public int deleteMember(String id) {
+		int resultCount=0;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = DBUtil.getConnect();
+			ps = conn.prepareStatement("delete member where id= ?");
+			ps.setString(1, id);
+			resultCount = ps.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBUtil.close(conn, ps);
+		}
+		return resultCount;
 	}
 }

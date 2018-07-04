@@ -9,4 +9,5 @@ public interface MemberDAO {
 	public MemberDTO getMember(String id);
 	public List<MemberDTO> getMemberList();
 	public int updateMember(MemberDTO member);
+	public int deleteMember(String id);
 }
