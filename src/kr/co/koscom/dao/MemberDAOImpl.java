@@ -102,4 +102,36 @@ public class MemberDAOImpl implements MemberDAO {
 		return memberList;
 	}
 
+	@Override
+	public int updateMember(MemberDTO member) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		int resultCount=0;
+		String sql = "update member set name=?,password=?,email=? where id = ?"; 
+		try {
+			conn = DBUtil.getConnect();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, member.getName());
+			ps.setString(2, member.getPassword());
+			ps.setString(3, member.getEmail());
+			ps.setString(4, member.getId());
+			
+			resultCount = ps.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBUtil.close(conn, ps);
+		}
+		return resultCount;
+	}
+	public static void main(String[] args) {
+		MemberDAOImpl dao = new MemberDAOImpl();
+		MemberDTO member = new MemberDTO();
+		member.setEmail("ccc@ccc.com");
+		member.setName("kkkk");
+		member.setPassword("111");
+		member.setId("carami");
+		System.out.println(dao.updateMember(member));
+		System.out.println(dao.getMember("carami"));
+	}
 }
