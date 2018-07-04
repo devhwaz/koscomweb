@@ -41,7 +41,12 @@ public class MemberJoinServlet extends HttpServlet {
 		
 		MemberDAO dao = new MemberDAOImpl();
 		int resultCount = dao.addMember(member);
-		response.setContentType("text/html; charset=utf-8");
+		if(resultCount == 1) {
+			response.sendRedirect("memberList");
+		}else {
+			response.sendRedirect("memberInput.html");
+		}
+		/*response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.print("<html><head><title>memberJoin</title></head><body>");
 		if(resultCount == 1) {
@@ -50,7 +55,7 @@ public class MemberJoinServlet extends HttpServlet {
 			out.println("<h1>회원가입 실패 -_-;;</h1>");
 		}
 		out.print("</body></html>");
-		out.close();
+		out.close();*/
 	}
 
 }
