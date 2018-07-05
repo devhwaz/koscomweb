@@ -7,6 +7,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.co.koscom.dao.MemberDAO;
 import kr.co.koscom.dao.MemberDAOImpl;
@@ -25,21 +26,26 @@ public class LoginServlet extends HttpServlet {
 		
 		MemberDAO dao = new MemberDAOImpl();
 		MemberDTO member = dao.getMember(id);
-		
+		HttpSession session = request.getSession();
 		if(member != null & member.getId() != null) {
 			if(member.getPassword().equals(password)) {
 				//로그인에 성공한 경우
 				//쿠키를 이용한 상태정보 유지
-				Cookie cookie = new Cookie("loginOK", id);
+				/*Cookie cookie = new Cookie("loginOK", id);
 				cookie.setPath("/");
 				cookie.setMaxAge(-1);
-				response.addCookie(cookie);
+				response.addCookie(cookie);*/
+				//세션을 이용한 상태유지
+				
+				session.setAttribute("loginOK", member);
 				
 				response.sendRedirect("memberList");
 			}else {
+				session.setAttribute("msg", "비밀번호를 확인하세요^^");
 				response.sendRedirect("loginForm.html");			
 			}
 		}else {
+			session.setAttribute("msg", id+"는 존재하지 않는 아이디 입니다. 회원 가입하세요.");
 			response.sendRedirect("memberInput.html");
 		}
 	}

@@ -10,6 +10,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.co.koscom.dao.MemberDAO;
 import kr.co.koscom.dao.MemberDAOImpl;
@@ -23,7 +24,8 @@ public class MemberListServlet extends HttpServlet {
 			throws ServletException, IOException {
 		boolean loginFlag = false;
 		String id = null;
-		Cookie[] cookies = request.getCookies();
+		//쿠키를 이용한 상태유지
+		/*Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
 				if (cookie.getName().equals("loginOK")) {
@@ -32,6 +34,13 @@ public class MemberListServlet extends HttpServlet {
 					break;
 				}
 			}
+		}*/
+		//세션을 이용한 상태유지
+		HttpSession session = request.getSession();
+		MemberDTO member=(MemberDTO)   session.getAttribute("loginOK");
+		if(member != null) {
+			loginFlag = true;
+			id = member.getId();
 		}
 		if (loginFlag) {
 			MemberDAO dao = new MemberDAOImpl();

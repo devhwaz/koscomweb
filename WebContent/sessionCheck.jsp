@@ -7,11 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<!-- <form action="cookieSave.jsp"> -->
-<form action="SessionServlet" >
-	쿠키이름 : <input type="text" name="cookieName"><br>
-	쿠키 값 : <input type="text" name="cookieValue"><br>
-	<input type="submit" value="쿠키저장">
-</form>
+
+<%   String sessionValue =(String) session.getAttribute("caramitest"); %>
+<%=sessionValue %>
 </body>
 </html>
