@@ -11,7 +11,7 @@
 <%MemberDTO member = (MemberDTO)request.getAttribute("member"); %>
 <h1>회원정보 수정</h1>
 <form action="memberUpdate" method="post">
-    이름 : 	<input type="text" name="name" value="<%=member.getName()%>"><br>
+    이름 : 	<input type="text" name="name" value="${member.name}"><br>
     아이디 : 	<input type="text" name="id" value="<%=member.getId()%>" readonly="readonly"><br>
    비밀번호 : 	<input type="password" name="password" value="<%=member.getPassword()%>"><br>
     이메일 : 	<input type="text" name="email" value="<%=member.getEmail()%>"><br>
